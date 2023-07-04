@@ -1,13 +1,11 @@
-#include "unity.h"
+#include <unity.h>
 #include "NativeGamepad.hpp"
-#include "Gamepad.hpp"
+
 
 void setUp(void) {
-  // before hook
 }
 
 void tearDown(void) {
-  // after hook
 }
 
 void it_gets_gamepad_state(void) {
@@ -24,12 +22,14 @@ void it_gets_gamepad_state(void) {
 
 int runTests(void) {
   UNITY_BEGIN();
+
   RUN_TEST(it_gets_gamepad_state);
+
   return UNITY_END();
 }
 
 #ifdef UNIT_TEST
 int main(void) {
-  runTests();
+  return runTests();
 }
 #endif
