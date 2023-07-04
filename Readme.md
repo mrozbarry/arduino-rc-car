@@ -9,3 +9,14 @@
 
  - [Bluepad32](https://github.com/ricardoquesada/bluepad32-arduino)
  - For clangd/c++ language servers, run `pio run -t compiledb` or `make lsp`, probably only new files/changes to platform.ini
+ - Mosfet needed for each motor
+   - How do the pins work?
+ - Can we pulse the motors or do we need some other mechanism for controlling speed?
+
+## Contributors
+
+ - Alex
+ - Daniel B
+ - Justin S
+ - Ruta
+ - Caleb
