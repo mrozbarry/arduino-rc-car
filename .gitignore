@@ -3,4 +3,5 @@
 .gcc-flags.json
 .ccls
 .cache
+.fleet
 compile_commands.json
