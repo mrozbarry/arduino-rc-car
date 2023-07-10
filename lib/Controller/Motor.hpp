@@ -13,9 +13,9 @@ public:
   void setup();
   void tick();
 
-  int source;
-  int gate;
-  int drain;
+  int in1;
+  int in2;
+  int pwm;
 
   float value;
 };

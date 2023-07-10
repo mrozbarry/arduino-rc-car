@@ -1,23 +1,24 @@
 #include <Motor.hpp>
 
-Motor::Motor(int source, int gate, int drain) noexcept
-  : value(0.0f)
+Motor::Motor(int in1, int in2, int pwm) noexcept
+  : in1(in1)
+  , in2(in2)
+  , pwm(pwm)
+  , value(0.0f)
 {}
 
 void Motor::setup()
 {
-  pinMode(source, OUTPUT);
-  pinMode(gate, OUTPUT);
-  pinMode(drain, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(pwm, OUTPUT);
 }
 
 void Motor::tick()
 {
-  value = constrain(value, -1.0f, 1.0f);
-  float absolute = abs(value);
-  bool forward = absolute > 0.05f;
+  int pwmValue = constrain(int(255.0f * abs(value)), 0, 255);
 
-  digitalWrite(source, 0);
-  digitalWrite(gate, 0);
-  digitalWrite(drain, 0);
+  digitalWrite(in1, 0);
+  digitalWrite(in2, 0);
+  analogWrite(pwm, pwmValue);
 }

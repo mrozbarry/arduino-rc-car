@@ -2,7 +2,7 @@
 
 test:
 	clear
-	pio test -e native -vvv
+	pio test -e native -v
 
 lsp:
 	pio run -t compiledb
