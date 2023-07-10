@@ -1,12 +1,11 @@
-.PHONY : test lsp make\:test
+.PHONY : test lsp native
 
 test:
 	clear
-	pio test -e native
+	pio test -e native -vvv
 
 lsp:
 	pio run -t compiledb
 
-make\:test:
-	cp -R ./templates/test ./test/test_$(NAME)
-	mv ./test/test_$(NAME)/test_test.cpp ./test/test_$(NAME)/test_$(NAME).cpp
+native:
+	pio run -e native -t exec

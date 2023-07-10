@@ -1,5 +1,5 @@
-#include "Application.hpp"
-#include "Core.hpp"
+#include <Application.hpp>
+#include <Core.hpp>
 #ifdef TARGET_NATIVE
 #include <iostream>
 using std::cout;

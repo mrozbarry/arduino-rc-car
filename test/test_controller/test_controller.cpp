@@ -1,6 +1,8 @@
 #include <unity.h>
-#include <Arduino.h>
-#include "Controller.hpp"
+#include <ArduinoFake.h>
+#include <Controller.hpp>
+
+using namespace fakeit;
 
 void setUp(void) {
 }
@@ -9,26 +11,42 @@ void tearDown(void) {
 }
 
 void it_creates_a_new_controller(void) {
+  When(Method(ArduinoFake(), pinMode)).AlwaysReturn();
+
   Controller controller = Controller(
       Controller::MotorPins { 0, 0, 0 },
       Controller::MotorPins { 0, 0, 0 }
   );
   
-  TEST_ASSERT_EQUAL_FLOAT(0.0f, controller.getLeftMotorState());
-  TEST_ASSERT_EQUAL_FLOAT(0.0f, controller.getRightMotorState());
+  TEST_ASSERT_EQUAL_FLOAT(0.0f, controller.leftMotor);
+  TEST_ASSERT_EQUAL_FLOAT(0.0f, controller.rightMotor);
+
+  Verify(
+      Method(ArduinoFake(), pinMode).Using(0, OUTPUT) +
+      Method(ArduinoFake(), pinMode).Using(0, OUTPUT) +
+      Method(ArduinoFake(), pinMode).Using(0, OUTPUT) +
+      Method(ArduinoFake(), pinMode).Using(0, OUTPUT) +
+      Method(ArduinoFake(), pinMode).Using(0, OUTPUT) +
+      Method(ArduinoFake(), pinMode).Using(0, OUTPUT)
+    );
 }
 
 void it_calculates_pin_output(void){
+  When(Method(ArduinoFake(), analogWrite)).AlwaysReturn();
+
   Controller controller = Controller(
       Controller::MotorPins { 0, 1, 2 },
       Controller::MotorPins { 3, 4, 5 }
   );
   
   controller.tick(0);
-  
-  for(int i=0; i<6; i++) {
-    TEST_ASSERT_EQUAL_INT(LOW, digitalRead(i));
-  }
+
+  Verify(Method(ArduinoFake(), analogWrite).Using(0, 0)).Once();
+  Verify(Method(ArduinoFake(), analogWrite).Using(1, 0)).Once();
+  Verify(Method(ArduinoFake(), analogWrite).Using(2, 0)).Once();
+  Verify(Method(ArduinoFake(), analogWrite).Using(3, 0)).Once();
+  Verify(Method(ArduinoFake(), analogWrite).Using(4, 0)).Once();
+  Verify(Method(ArduinoFake(), analogWrite).Using(5, 0)).Once();
 }
 
 int runTests(void) {

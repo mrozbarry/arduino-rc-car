@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef UNIT_TEST
+#include <ArduinoFake.h>
+#else
+#include <Arduino.h>
+#endif
+
 class Controller {
 public:
   struct MotorPins{
@@ -10,11 +16,13 @@ public:
   
   Controller(MotorPins left, MotorPins right) noexcept;
   
-  float getLeftMotorState();
-  float getRightMotorState();
-  
   void tick(long milliseconds);
+
+  float leftMotor;
+  float rightMotor;
   
 private:
+  float tickMotor(MotorPins& pins, float value);
+
   MotorPins left, right;
 };
