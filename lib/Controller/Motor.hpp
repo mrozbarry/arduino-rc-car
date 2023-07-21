@@ -8,7 +8,7 @@
 
 class Motor {
 public:
-  Motor(int source, int gate, int drain) noexcept;
+  Motor(int in1, int in2, int pwm) noexcept;
 
   void setup();
   void tick();
@@ -19,4 +19,6 @@ public:
 
   float value;
 };
+
+
 

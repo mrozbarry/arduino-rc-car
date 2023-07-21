@@ -29,9 +29,9 @@ void it_calculates_pin_output(void) {
 
   motor.tick();
 
-  Verify(Method(ArduinoFake(), digitalWrite).Using(0, 0) +
-         Method(ArduinoFake(), digitalWrite).Using(1, 0));
-  Verify(Method(ArduinoFake(), analogWrite).Using(2, 0));
+  Verify(Method(ArduinoFake(), digitalWrite).Using(0, LOW) +
+         Method(ArduinoFake(), digitalWrite).Using(1, LOW) +
+         Method(ArduinoFake(), analogWrite).Using(2, 0));
 }
 
 
@@ -41,13 +41,13 @@ void it_calculates_pwm(void) {
 
   Motor motor = Motor(0, 1, 2);
 
-  motor.value = -1.0f; // -1.0f -> 255
+  motor.value = -0.5f; // -1.0f -> 255
 
   motor.tick();
 
-  Verify(Method(ArduinoFake(), digitalWrite).Using(0, 0) +
-         Method(ArduinoFake(), digitalWrite).Using(1, 0));
-  Verify(Method(ArduinoFake(), analogWrite).Using(2, 255));
+  Verify(Method(ArduinoFake(), digitalWrite).Using(0, LOW) +
+         Method(ArduinoFake(), digitalWrite).Using(1, HIGH) +
+         Method(ArduinoFake(), analogWrite).Using(2, 127));
 }
 
 
@@ -61,11 +61,26 @@ void it_constrains_value(void) {
 
   motor.tick();
 
-  Verify(Method(ArduinoFake(), digitalWrite).Using(0, 0) +
-         Method(ArduinoFake(), digitalWrite).Using(1, 0) +
+  Verify(Method(ArduinoFake(), digitalWrite).Using(0, LOW) +
+         Method(ArduinoFake(), digitalWrite).Using(1, HIGH) +
          Method(ArduinoFake(), analogWrite).Using(2, 255));
 }
 
+void it_runs_the_motor_forward(void) {
+  When(Method(ArduinoFake(), digitalWrite)).AlwaysReturn();
+  When(Method(ArduinoFake(), analogWrite)).AlwaysReturn();
+
+  Motor motor = Motor(0, 1, 2);
+
+  motor.value = 1.0f;
+
+  motor.tick();
+
+  Verify(Method(ArduinoFake(), digitalWrite).Using(0, HIGH) +
+         Method(ArduinoFake(), digitalWrite).Using(1, LOW) +
+         Method(ArduinoFake(), analogWrite).Using(2, 255));
+
+}
 int runTests(void) {
   UNITY_BEGIN();
 
@@ -73,6 +88,7 @@ int runTests(void) {
   RUN_TEST(it_calculates_pin_output);
   RUN_TEST(it_calculates_pwm);
   RUN_TEST(it_constrains_value);
+  RUN_TEST(it_runs_the_motor_forward);
 
   return UNITY_END();
 }

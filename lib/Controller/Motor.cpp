@@ -16,9 +16,9 @@ void Motor::setup()
 
 void Motor::tick()
 {
-  int pwmValue = constrain(int(255.0f * abs(value)), 0, 255);
+  int pwmValue = constrain(int(255.0f * abs(this->value)), 0, 255);
 
-  digitalWrite(in1, 0);
-  digitalWrite(in2, 0);
-  analogWrite(pwm, pwmValue);
+  digitalWrite(this->in1, this->value > 0 ? HIGH : LOW);
+  digitalWrite(this->in2, this->value < 0 ? HIGH : LOW);
+  analogWrite(this->pwm, pwmValue);
 }
