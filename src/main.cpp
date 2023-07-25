@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  app.loop();
+  app.tick();
 }
 
 
@@ -25,9 +25,8 @@ int main() {
 
   ifNative(cout << "entering loop" << endl);
   for(;;) {
-    cout << millis() << endl;
+    ifNative(cout << millis() << endl);
     loop();
-    delay(1000);
   }
   ifNative(cout << "exiting loop" << endl);
 

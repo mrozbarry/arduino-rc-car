@@ -2,6 +2,8 @@
 
 #ifdef TARGET_NATIVE
 
+#include <ArduinoFake.h>
+
 void delay(unsigned long milliseconds);
 unsigned long millis();
 

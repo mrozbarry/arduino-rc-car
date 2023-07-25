@@ -1,7 +1,8 @@
 #include <Motor.hpp>
 
 Motor::Motor(int in1, int in2, int pwm) noexcept
-  : in1(in1)
+  : Tickable()
+  , in1(in1)
   , in2(in2)
   , pwm(pwm)
   , value(0.0f)

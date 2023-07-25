@@ -1,17 +1,18 @@
 #pragma once
 
+#include <Tickable.hpp>
 #ifdef UNIT_TEST
 #include <ArduinoFake.h>
 #else
 #include <Arduino.h>
 #endif
 
-class Motor {
+class Motor : public Tickable {
 public:
   Motor(int in1, int in2, int pwm) noexcept;
 
-  void setup();
-  void tick();
+  virtual void setup();
+  virtual void tick();
 
   int in1;
   int in2;
