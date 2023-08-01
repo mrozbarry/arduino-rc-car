@@ -2,6 +2,7 @@
 
 #include <Tickable.hpp>
 #include <Core.hpp>
+#include <Bluepad32.h>
 
 class Application : public Tickable {
   public:
@@ -12,6 +13,7 @@ class Application : public Tickable {
     virtual void tick();
 
   private:
-    Tickable *motorLeft;
-    Tickable *motorRight;
+    Tickable      *motorLeft;
+    Tickable      *motorRight;
+    ControllerPtr controller;
 };
