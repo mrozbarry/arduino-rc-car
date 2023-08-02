@@ -5,7 +5,7 @@ test:
 	pio test -e native -v
 
 lsp:
-	pio run -t compiledb
+	pio run -e native -t compiledb
 
 native:
 	pio run -e native -t exec
