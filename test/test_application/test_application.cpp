@@ -26,15 +26,10 @@ void it_creates_a_new_application(void) {
   
   application.setup();
   
-//  Verify(
-//      Method(left, setup) +
-//      Method(right, setup)
-//  ).Exactly(1);
-//  motor.setup();
-//
-//  Verify(Method(ArduinoFake(), pinMode).Using(0, OUTPUT) +
-//         Method(ArduinoFake(), pinMode).Using(0, OUTPUT) +
-//         Method(ArduinoFake(), pinMode).Using(0, OUTPUT));
+  Verify(
+      Method(left, setup) +
+      Method(right, setup)
+  ).Exactly(1);
 }
 
 
