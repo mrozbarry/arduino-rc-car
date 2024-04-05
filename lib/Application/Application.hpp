@@ -2,7 +2,7 @@
 
 #include <Tickable.hpp>
 #include <Core.hpp>
-#include <Bluepad32.h>
+#include <Controller.hpp>
 
 class Application : public Tickable {
   public:
@@ -12,8 +12,11 @@ class Application : public Tickable {
     virtual void setup();
     virtual void tick();
 
+    bool onControllerConnect(Controller *controller);
+    bool onControllerDisconnect(Controller *controller);
+
   private:
     Tickable      *motorLeft;
     Tickable      *motorRight;
-    ControllerPtr controller;
+    Controller    *controller;
 };
